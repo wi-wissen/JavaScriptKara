@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JavaScriptKara</title>
+    <link href='css/sokoban.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <script src="../js/sokoban.js"></script>
+
+    <script>  
+        window.onload = function () {
+            w = 32; //cellsize
+            margin = 2; //margin inside cell
+            wait = 800; //wait between each move and turn of kara
+            style = "flaticon"; // classic, flaticon, icon8_color, icon8_ios, icon8_office
+
+            /*
+                #: Baum
+                @: Kara
+                .: Blatt
+                $: Pilz
+                *: Pilz auf einem Blatt
+                +: Kara auf einem Blatt
+            
+            */
+            // be aware that space in front of line are interpretated as empty fields
+            karasworld = `world:
+#####
+# .. #
+# @$ #
+# *  #
+######`
+
+            setup();
+        }
+/*
+kara
+	senor: onLeaf(), treeFront(), treeLeft(), treeRight(), mushroomFront()
+	actor: move(), turnLeft(), turnRight(), putLeaf(), removeLeaf()
+*/
+        function run() {
+            kara.move();
+            kara.turnLeft();
+            kara.move();
+			if (kara.onLeaf()) {
+				kara.removeLeaf();
+			}
+			if (kara.treeFront()) {
+				kara.turnRight();
+				kara.move();
+			}
+			if (kara.treeLeft()) {
+				kara.putLeaf();
+				kara.turnRight();
+				kara.move();
+			}
+        }
+
+    </script>
+</body>
+
+</html>

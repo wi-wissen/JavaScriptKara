@@ -1,0 +1,26 @@
+body {
+    margin: 0px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    display: flex;
+
+    /* This centers our sketch horizontally. */
+    justify-content: center;
+
+    /* This centers our sketch vertically. */
+    align-items: center;
+}
+
+canvas {
+/**
+* Set transparent to let any other canvases render through
+*/
+background-color: transparent;
+}
