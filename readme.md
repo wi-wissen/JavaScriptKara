@@ -23,38 +23,38 @@ Just grab `js/sokoban.js` and `img` and you are ready to go.
 For full example see: `_demo/demo.html`
 
 ```js
-window.onload = function () {
-	w = 32; //cellsize in px
-	margin = 2; //margin inside cell in px
-	wait = 800; //wait between each move and turn of kara in ms
-	style = "flaticon"; // use: classic, flaticon, icon8_color, icon8_ios or icon8_office
+w = 32; //cellsize in px
+margin = 2; //margin inside cell in px
+wait = 800; //wait between each move and turn of kara in ms
+style = "flaticon"; // use: classic, flaticon, icon8_color, icon8_ios or icon8_office
 
-	/*
-		#: Tree
-		@: Kara
-		.: Leaf
-		$: Mushroom
-		*: Mushroom on a Leaf
-		+: Kara on a Leaf
-	
-	*/
-	// Be aware that space in front of line are interpretated as empty fields.
-	karasworld = `world:
+/*
+	#: Tree
+	@: Kara
+	.: Leaf
+	$: Mushroom
+	*: Mushroom on a Leaf
+	+: Kara on a Leaf
+
+*/
+
+// Be aware that space in front of line are interpretated as empty fields.
+karasworld = `world:
 #####
 # .. #
 # @$ #
 # *  #
 ######`
 
-    //All settings above are optional. You only have to run this:
-	setup();
-}
+//All settings above are optional. You only have to run this:
+setup();
 
 /*
 kara
 	senor: onLeaf(), treeFront(), treeLeft(), treeRight(), mushroomFront()
 	actor: move(), turnLeft(), turnRight(), putLeaf(), removeLeaf()
 */
+
 function run() {
 	kara.move();
 	kara.turnLeft();
@@ -71,6 +71,13 @@ function run() {
 		kara.turnRight();
 		kara.move();
 	}
+  
+  function turnaround() {
+    kara.turnRight();
+    kara.turnRight();
+  }
+  
+  turnaround();
 }
 ```
 
