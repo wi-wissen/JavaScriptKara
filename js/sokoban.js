@@ -611,10 +611,40 @@ cw.preload(async function () { //you have to wait that all images are loaded
     userprogramm = userprogramm.replace(/kara.turnRight/g,"await kara.turnRight");
 	userprogramm = userprogramm.replace(/kara.putLeaf/g,"await kara.putLeaf");
 	userprogramm = userprogramm.replace(/kara.removeLeaf/g,"await kara.removeLeaf");
+	
+    var regexp = /function (\w+)[ ]?\(\)/g;
+    while (result = regexp.exec(userprogramm)) {
+        userprogramm = userprogramm.split(result[1] + "(").join("await " + result[1] + "(");
+        userprogramm = userprogramm.split(result[1] + " (").join("await " + result[1] + " (");
+        userprogramm = userprogramm.replace("function await " + result[1],"async function " + result[1]);
+    }
+	
     console.log(userprogramm);
     
     var AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
     var fn = new AsyncFunction(userprogramm);
-    fn();
+
+try {
+        await fn();
+    } catch (e) {
+        //remove world
+        document.getElementById("world").outerHTML = "";
+        //add errormessage
+        showerror(e);
+        throw e;       
+    }
 });
+}
+
+window.onerror = function (msg, url, lineNo, columnNo, error) {
+    showerror(error);
+    return false;
+};
+
+function showerror(msg) {
+    document.body.innerHTML += `
+    <div class="alert alert-danger">
+        ` + msg + `.
+    </div>`;
+
 }
