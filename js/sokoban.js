@@ -1,7 +1,5 @@
 //for loading images with correct path
-var scripts = document.getElementsByTagName('script');
-var path = scripts[scripts.length - 1].src.split('?')[0];      // remove any ?query
-var mydir = path.split('/').slice(0, -1).join('/') + '/';  // remove last filename part of path
+this.mydir = location.href.substring(0, location.href.lastIndexOf("/") + 1);
 
 
 //fieldsize
@@ -498,8 +496,8 @@ class canvasWorld {
         var loadImage = function (src) {
             var img = new Image();
             img.onload = complete;
-            console.log("img.src = " + mydir + "../" + src);
-            img.src = mydir + "../" + src;
+            console.log("img.src = " + mydir + src);
+            img.src = mydir + src;
             return img;
         }
 
