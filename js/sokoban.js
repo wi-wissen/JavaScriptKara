@@ -337,7 +337,7 @@ class Kara extends Player {
         }
 
         if (world[this.i + vector.x] === undefined) {
-            throw new KaraException("there is no Leaf on this field");
+            return false;
         }
         else if (world[this.i + vector.x][this.j + vector.y] === undefined) {
             return false;
@@ -433,7 +433,7 @@ class Kara extends Player {
             return false;
         }
         else {
-            return world[this.i + vector.x][this.j + vector.y].blocked;
+            return world[this.i + vector.x][this.j + vector.y].occupied;
         }
     }
 
@@ -485,6 +485,7 @@ class canvasWorld {
         canvas.width = cols * w;
         canvas.height = rows * w;
         canvas.style.zIndex = 10;
+        canvas.style.maxWidth = "100%";
 
         body.appendChild(canvas);
     }
