@@ -20,7 +20,7 @@ Just grab `js/sokoban.js` and `img` and you are ready to go.
 
 ## How to use
 
-For full example see: `_demo/demo.html`
+For full example see: `docs/demo.html`
 
 ```js
 w = 32; //cellsize in px
