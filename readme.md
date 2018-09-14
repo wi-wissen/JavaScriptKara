@@ -19,9 +19,9 @@ Just grab `js/sokoban.js` and `img` and you are ready to go.
 
 ## Live
 
-[Demo](https://wi-wissen.github.io/JavaScriptKara/demo/demo.html)
+[Demo](https://wi-wissen.github.io/JavaScriptKara/demo/demo)
 
-[Editor](https://wi-wissen.github.io/JavaScriptKara/demo/editor.html)
+[Editor](https://wi-wissen.github.io/JavaScriptKara/demo/editor)
 
 ## How to use
 
