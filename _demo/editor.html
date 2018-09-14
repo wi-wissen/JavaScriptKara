@@ -1,0 +1,87 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JavaScriptKara</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/editor.css">
+    <link href='css/sokoban.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.40.0/lib/codemirror.css">
+</head>
+
+<body>
+    <section class="container">
+        <div class="left-half">
+            <kara></kara>
+            <button id="2" class="btn btn-primary" onClick="setupkara()">Setup</button>
+        </div>
+        <div class="right-half">
+                <div class="terminal-topbar">
+                        <span class="button red"></span>
+                        <span class="button yellow"></span>
+                        <span class="button green"></span>
+                        <span class="title">Editor</span>
+                    </div>
+            <textarea id="editor"></textarea>
+            <button id="1" class="btn btn-primary" onClick="runkara()">Run</button>
+        </div>
+        </section>
+
+        <script src="../js/sokoban.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/codemirror@5.40.0/lib/codemirror.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/codemirror@5.40.0/mode/javascript/javascript.js"></script>
+
+        <script>
+            // only for demo because imgs are not in /img
+            this.mydir = this.mydir + "../";
+
+            var containerElement = "kara";
+        </script>
+
+        <script>  
+            var mode = 0;
+            var cm_code = "\/*\nkara\n\tSensoren: onLeaf(), treeFront(), treeLeft(), treeRight(), mushroomFront()\n\tAktoren: move(), turnLeft(), turnRight(), putLeaf(), removeLeaf()\n*\/\nkara.move();";
+            var cm_setup = "w = 32; \/\/cellsize in px\nmargin = 2; \/\/margin inside cell in px\nwait = 800; \/\/wait between each move and turn of kara in ms\nstyle = \"flaticon\"; \/\/ use: classic, flaticon, icon8_color, icon8_ios or icon8_office\n\n\/*\n\t#: Tree\n\t@: Kara\n\t.: Leaf (Berry)\n\t$: Mushroom\n\t*: Mushroom on a Leaf (Berry)\n\t+: Kara on a Leaf (Berry)\n*\/\n\n\/\/ All Spaces in in front of each line willm be interpreted as empty field..\nkarasworld = `world:\n#####\n# .. #\n# @$ #\n# *  #\n######`\n\nsetup();\n\n"
+        
+            function runkara() {
+                this.run = "function run() {" + cm_code + "}";
+                eval(cm_setup);
+            }    
+
+            function setupkara() {
+                if (mode == 0) {
+                    mode = 1;
+                    document.getElementById('2').innerHTML = "Code";
+                    editor.setValue(cm_setup);
+                }
+                else {
+                    mode = 0;
+                    document.getElementById('2').innerHTML = "Setup"
+                    editor.setValue(cm_code);
+                }
+            }
+        </script>
+
+        <script>
+            var myTextarea = document.getElementById('editor');
+            var editor = CodeMirror.fromTextArea(myTextarea, {
+                lineNumbers: true
+            });
+
+            editor.setValue(cm_code);
+
+            editor.on("change", function(cm, change) { 
+                if (mode==0) {
+                    cm_code = editor.getValue();
+                }
+                else {
+                    cm_setup = editor.getValue();
+                }
+            })
+
+            var run = "";
+
+            runkara();
+
+        </script>
+</body>

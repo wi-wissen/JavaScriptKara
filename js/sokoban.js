@@ -1,6 +1,7 @@
 //for loading images with correct path
 this.mydir = location.href.substring(0, location.href.lastIndexOf("/") + 1);
 
+var containerElement = "body";
 
 //fieldsize
 let w = 32;
@@ -479,7 +480,7 @@ class canvasWorld {
         console.log("Karas World: (" + cols + ", " + rows + ")");
 
         //create canvas
-        var body = document.getElementsByTagName("body")[0];
+        var container = document.getElementsByTagName(containerElement)[0];
 
         canvas.id = "world";
         canvas.width = cols * w;
@@ -487,7 +488,7 @@ class canvasWorld {
         canvas.style.zIndex = 10;
         canvas.style.maxWidth = "100%";
 
-        body.appendChild(canvas);
+        container.appendChild(canvas);
     }
 
     preload(callback) {
@@ -721,7 +722,8 @@ function showerror(msg) {
 
     // add the newly created element and its content into the DOM 
     var currentWorld = document.getElementById("world");
-    document.body.insertBefore(newError, currentWorld);
+    var container = document.getElementsByTagName(containerElement)[0]
+    container.insertBefore(newError, currentWorld);
 }
 
 function showwarning(msg) {
@@ -735,7 +737,8 @@ function showwarning(msg) {
 
     // add the newly created element and its content into the DOM 
     var currentWorld = document.getElementById("world");
-    document.body.insertBefore(newWarning, currentWorld);
+    var container = document.getElementsByTagName(containerElement)[0]
+    container.insertBefore(newWarning, currentWorld);
 
 
 }

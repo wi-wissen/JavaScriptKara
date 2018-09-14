@@ -1,0 +1,150 @@
+/* Fake Window header */
+html,
+body {
+	height: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.terminal-topbar {
+
+}
+
+.terminal-topbar {
+    background: #E0E8F0;
+    height: 30px;
+    border-radius: 8px 8px 0 0;
+    padding-left: 10px;
+    /*text-align: right;*/
+}
+
+.terminal-topbar .button {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 7px;
+}
+
+.terminal-topbar .title {
+    height: 15px;
+    display: inline-block;
+    margin: 7px;
+    margin-top: 4px;
+    vertical-align: top;
+    font-size: 15px;
+    text-align: center;
+    width: calc(100% - 200px);
+}
+
+.terminal-topbar .button.red {
+    background: #E75448;
+}
+
+.terminal-topbar .button.yellow {
+    background: #f39c12;
+}
+
+.terminal-topbar .button.green {
+    background: #2ecc71;
+}
+
+
+body {
+    flex: none;
+    font-family: BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+.container {
+display: grid;
+grid-template-columns: 40% 60%;
+height: calc(100%);
+width: 100%;
+}
+
+.left-half {
+grid-column: 1;
+margin: 20px;
+max-height: 100%;
+}
+
+.right-half {
+grid-column: 2;
+margin: 20px;
+max-height: 100%;
+}
+
+kara {
+    margin: 0;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+height: calc(100%  - 54px) !important; 
+}
+
+.simple-console {
+    height: calc(100%  - 10px - 40px);
+    border-style: solid;
+    border-color: #E0E8F0;
+}
+
+.CodeMirror { 
+    height: calc(100% - 50px  - 40px) !important; 
+    border-style: solid;
+    border-color: #E0E8F0;
+}
+
+.btn-primary {
+color: #fff;
+background-color: #337ab7;
+border-color: #2e6da4;
+height: 40px;
+width: calc(100% - 10px);
+margin: 5px;
+}
+.btn {
+display: inline-block;
+padding: 6px 12px;
+margin-bottom: 0;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+-ms-touch-action: manipulation;
+touch-action: manipulation;
+cursor: pointer;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+background-image: none;
+border: 1px solid transparent;
+border-top-color: transparent;
+border-right-color: transparent;
+border-bottom-color: transparent;
+border-left-color: transparent;
+border-radius: 4px;
+}
+
+.btn-primary:hover {
+color: #fff;
+background-color: #286090;
+border-color: #204d74;
+}
+
+primary:focus {
+color: #fff;
+background-color: #286090;
+border-color: #122b40;
+}
+
+primary:active {
+color: #fff;
+background-color: #286090;
+border-color: #204d74;
+}
