@@ -1,6 +1,6 @@
 # JavaScriptKara
 
-![allstyles](_demo/allstyles.png)
+![allstyles](demo/allstyles.png)
 
 JavaScriptKara aims to teach students fundamental ideas of programming.
 
@@ -8,7 +8,7 @@ Kara is like [Sokoban](https://en.wikipedia.org/wiki/Sokoban). It is very popula
 
 In contrast to the original JavaScriptKara itself is written in JavaScript and is under Mozilla Public License 2.0.
 
-Real world use: [ada7.de](http://ada7.de/t/Nkyn)
+Real world use: [ada7.de](https://ada7.de/c/pD9Tf)
 
 
 
@@ -17,10 +17,15 @@ Real world use: [ada7.de](http://ada7.de/t/Nkyn)
 Just grab `js/sokoban.js` and `img` and you are ready to go.
 
 
+## Live
+
+[Demo](https://wi-wissen.github.io/JavaScriptKara/demo/demo.html)
+
+[Editor](https://wi-wissen.github.io/JavaScriptKara/demo/editor.html)
 
 ## How to use
 
-For full example see: `docs/demo.html`
+For full example see: `demo/demo.html`
 
 ```js
 w = 32; //cellsize in px
