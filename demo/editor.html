@@ -44,6 +44,11 @@
             var cm_setup = "w = 32; \/\/cellsize in px\nmargin = 2; \/\/margin inside cell in px\nwait = 800; \/\/wait between each move and turn of kara in ms\nstyle = \"flaticon\"; \/\/ use: classic, flaticon, icon8_color, icon8_ios or icon8_office\n\n\/*\n\t#: Tree\n\t@: Kara\n\t.: Leaf (Berry)\n\t$: Mushroom\n\t*: Mushroom on a Leaf (Berry)\n\t+: Kara on a Leaf (Berry)\n*\/\n\n\/\/ All Spaces in in front of each line willm be interpreted as empty field..\nkarasworld = `world:\n#####\n# .. #\n# @$ #\n# *  #\n######`\n\nsetup();\n\n"
         
             function runkara() {
+                var node = document.getElementsByTagName(containerElement)[0];
+                while (node.hasChildNodes()) {
+                    node.removeChild(node.lastChild);
+                }
+
                 this.run = "function run() {" + cm_code + "}";
                 eval(cm_setup);
             }    

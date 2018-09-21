@@ -2,6 +2,7 @@
 this.mydir = location.href.substring(0, location.href.lastIndexOf("/") + 1);
 
 var containerElement = "body";
+var gameMode = false; //change behavior for handling key inputs
 
 //fieldsize
 let w = 32;
@@ -605,42 +606,79 @@ class canvasWorld {
     }
 }
 
-window.addEventListener("keydown", function (event) {
+function registerKeyInput() {
+    var actionElement = document.getElementsByTagName(containerElement)[0];
+    actionElement.tabIndex = 99; //neccesary for handling keyinput
+
+    //setup is called multiple times, so we have to remove eventhandler first
+    actionElement.removeEventListener("keydown", handleKeyInput);
+    actionElement.addEventListener("keydown", handleKeyInput);
+}
+
+function handleKeyInput(event) {
     if (event.defaultPrevented) {
         return; // Do nothing if the event was already processed
     }
 
-    switch (event.key) {
-        case "ArrowDown":
-            // Do something for "down arrow" key press.
-            kara.rotation = "down";
-            kara.moveVector({ x: 0, y: 1 });
-            break;
-        case "ArrowUp":
-            // Do something for "up arrow" key press.
-            kara.rotation = "up";
-            kara.moveVector({ x: 0, y: -1 });
-            break;
-        case "ArrowLeft":
-            // Do something for "left arrow" key press.
-            kara.rotation = "left";
-            kara.moveVector({ x: -1, y: 0 });
-            break;
-        case "ArrowRight":
-            // Do something for "right arrow" key press.
-            kara.rotation = "right";
-            kara.moveVector({ x: 1, y: 0 });
-            break;
-        default:
-            return; // Quit when this doesn't handle the key event.
+    if (gameMode) {
+        switch (event.key) {
+            case "ArrowDown":
+                // Do something for "down arrow" key press.
+                kara.rotation = "down";
+                kara.moveVector({ x: 0, y: 1 });
+                break;
+            case "ArrowUp":
+                // Do something for "up arrow" key press.
+                kara.rotation = "up";
+                kara.moveVector({ x: 0, y: -1 });
+                break;
+            case "ArrowLeft":
+                // Do something for "left arrow" key press.
+                kara.rotation = "left";
+                kara.moveVector({ x: -1, y: 0 });
+                break;
+            case "ArrowRight":
+                // Do something for "right arrow" key press.
+                kara.rotation = "right";
+                kara.moveVector({ x: 1, y: 0 });
+                break;
+            default:
+                return; // Quit when this doesn't handle the key event.
+        }
+    }
+    else {
+        switch (event.key) {
+            case "ArrowDown":
+                // Do something for "down arrow" key press.
+                if (kara.onLeaf()) {
+                    kara.removeLeaf()
+                }
+                else {
+                    kara.putLeaf();
+                }
+                break;
+            case "ArrowUp":
+                // Do something for "up arrow" key press.
+                kara.move();
+                break;
+            case "ArrowLeft":
+                // Do something for "left arrow" key press.
+                kara.turnLeft();
+                break;
+            case "ArrowRight":
+                // Do something for "right arrow" key press.
+                kara.turnRight();
+                break;
+            default:
+                return; // Quit when this doesn't handle the key event.
+        }
     }
 
     cw.draw();
 
     // Cancel the default action to avoid it being handled twice
     event.preventDefault();
-}, true);
-
+}
 
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
@@ -650,6 +688,8 @@ function refresh() {
 }
 
 function setup() {
+    registerKeyInput()
+
     cw = new canvasWorld(style);
     //cw.drawBackground();
     cw.preload(async function () { //you have to wait that all images are loaded
@@ -669,12 +709,18 @@ function setup() {
         userprogramm = userprogramm.replace(/kara.putBerry/g, "await kara.putBerry");
         userprogramm = userprogramm.replace(/kara.removeBerry/g, "await kara.removeBerry");
 
-        var regexp = /function (\w+)[ ]?\(\)/g;
+        var regexp = /function (\w+)[ ]?\(.*?\)/g;
         while (result = regexp.exec(userprogramm)) {
             userprogramm = userprogramm.split(result[1] + "(").join("await " + result[1] + "(");
             userprogramm = userprogramm.split(result[1] + " (").join("await " + result[1] + " (");
             userprogramm = userprogramm.replace("function await " + result[1], "async function " + result[1]);
         }
+
+        //prevent kara from endless looping
+        userprogramm = "function karaWalksToLongFunction() {if (karaWalksToLongCounter++ > 9999) throw new KaraException('Kara is tired doing repeating actions 10.000 times.'); return true;}" + userprogramm;
+        userprogramm = "var karaWalksToLongCounter = 0;" + userprogramm;
+        userprogramm = userprogramm.replace(/(while[ ]?\()/g, "$1 karaWalksToLongFunction() && ");
+        userprogramm = userprogramm.replace(/(for.*{)/g, "$1 karaWalksToLongFunction(); ");
 
         console.log(userprogramm);
 
